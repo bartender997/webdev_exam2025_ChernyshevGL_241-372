@@ -1,52 +1,43 @@
 const API_BASE_URL = 'https://edu.std-900.ist.mospolytech.ru';
-const API_KEY = '6ed4dbd6-6e6e-4ed2-9f19-90d8267518b6';
+const API_KEY = '6ed4dbd6-6e6e-4ed2-9f19-90d8267518b6'; 
 const CART_STORAGE_KEY = 'techshop_cart';
 
-// РАБОЧИЕ Unsplash изображения с правильными параметрами
-const PRODUCT_IMAGES = [
-    'https://images.unsplash.com/photo-1498049794561-7780e7231661?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
-    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'
+
+const LOCAL_PRODUCT_IMAGES = [
+    'images/products/1.jpg',
+    'images/products/2.jpg',
+    'images/products/3.jpg',
+    'images/products/4.jpg',
+    'images/products/5.jpg',
+    'images/products/6.jpg',
+    'images/products/7.jpg',
+    'images/products/8.jpg',
+    'images/products/9.jpg',
+    'images/products/10.jpg'
 ];
 
-const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80';
+const PLACEHOLDER_IMAGE = 'images/placeholder.jpg';
 
-/**
- * Получает изображение для товара по его ID
- * Распределяет изображения между всеми товарами
- */
 function getProductImage(productId) {
-    // Преобразуем ID в число
     const id = parseInt(productId);
     
     if (isNaN(id) || id <= 0) {
         return PLACEHOLDER_IMAGE;
     }
     
-    // Используем остаток от деления для равномерного распределения
-    const imageIndex = (id - 1) % PRODUCT_IMAGES.length;
-    
-    return PRODUCT_IMAGES[imageIndex];
+    const imageIndex = (id - 1) % LOCAL_PRODUCT_IMAGES.length;
+    return LOCAL_PRODUCT_IMAGES[imageIndex];
 }
 
 function getCartImage(productId) {
     return getProductImage(productId);
 }
 
-// Остальные функции остаются без изменений...
+function getPlaceholderImage() {
+    return PLACEHOLDER_IMAGE;
+}
+
+
 function showNotification(message, type = 'info', duration = 5000) {
     const notificationArea = document.getElementById('notification-area');
     if (!notificationArea) return;
@@ -153,9 +144,6 @@ function debounce(func, delay) {
     };
 }
 
-/**
- * Генерация звездного рейтинга
- */
 function generateStarRating(rating) {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 >= 0.5;
@@ -167,4 +155,12 @@ function generateStarRating(rating) {
     for (let i = 0; i < emptyStars; i++) stars += '☆';
     
     return stars;
+}
+
+function formatDateForAPI(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
 }

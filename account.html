@@ -13,6 +13,8 @@
     <header class="header">
         <div class="container header-container">
             <div class="logo">
+                <img src="images/logo.png" alt="TechShop Logo" class="logo-image" 
+                     onerror="this.style.display='none'">
                 <h1><a href="index.html">TechShop</a></h1>
             </div>
             
@@ -30,7 +32,7 @@
 
     <main class="main-content account-page">
         <div class="container">
-            <h1 class="page-title">Заказы</h1>
+            <h1 class="page-title">Мои заказы</h1>
             
             <div class="orders-container">
                 <table id="orders-table" class="orders-table">
@@ -44,11 +46,18 @@
                             <th>Действия</th>
                         </tr>
                     </thead>
-                    <tbody id="orders-list"></tbody>
+                    <tbody id="orders-list">
+                        
+                        <tr id="loading-row">
+                            <td colspan="6" style="text-align: center; padding: 40px;">
+                                <p>Загрузка заказов...</p>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 
                 <div id="no-orders" class="no-orders" style="display: none;">
-                    <p>У вас пока нет заказов.</p>
+                    <p>У вас пока нет оформленных заказов.</p>
                     <a href="index.html" class="btn btn-primary">Перейти в каталог</a>
                 </div>
             </div>
@@ -58,25 +67,35 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p class="copyright">&copy; 2024 TechShop</p>
+                <div class="footer-info">
+                    <h3>TechShop</h3>
+                    <p class="copyright">&copy; 2025 TechShop - Все права защищены</p>
+                </div>
+                <div class="footer-contacts">
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@techshop.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Политехническая, 11</p>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Модальное окно просмотра заказа -->
     <div id="view-order-modal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <button class="close-modal">&times;</button>
             <h3>Просмотр заказа</h3>
             <div id="view-order-content" class="order-details"></div>
             <div class="modal-buttons">
-                <button class="btn btn-secondary close-view-modal">Ок</button>
+                <button class="btn btn-secondary close-view-modal">Закрыть</button>
             </div>
         </div>
     </div>
 
+    <!-- Модальное окно редактирования заказа -->
     <div id="edit-order-modal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <button class="close-modal">&times;</button>
             <h3>Редактирование заказа</h3>
             <form id="edit-order-form" class="edit-order-form">
                 <div class="form-row">
@@ -147,20 +166,28 @@
                 
                 <div class="modal-buttons">
                     <button type="button" class="btn btn-secondary close-edit-modal">Отмена</button>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Модальное окно удаления заказа -->
     <div id="delete-order-modal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <button class="close-modal">&times;</button>
             <h3>Удаление заказа</h3>
-            <p>Вы уверены, что хотите удалить заказ?</p>
+            <div class="order-details">
+                <p>Вы уверены, что хотите удалить этот заказ?</p>
+                <p class="warning-text" style="color: var(--danger-color); font-weight: 600; margin-top: 10px;">
+                    <i class="fas fa-exclamation-triangle"></i> Это действие нельзя отменить.
+                </p>
+            </div>
             <div class="modal-buttons">
-                <button type="button" class="btn btn-secondary close-delete-modal">Нет</button>
-                <button type="button" class="btn btn-danger" id="confirm-delete">Да</button>
+                <button type="button" class="btn btn-secondary close-delete-modal">Нет, отменить</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete">
+                    <i class="fas fa-trash"></i> Да, удалить
+                </button>
             </div>
         </div>
     </div>
