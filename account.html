@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechShop - Личный кабинет</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="notification-area"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1><a href="index.html">TechShop</a></h1>
+            </div>
+            
+            <div class="header-actions">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-store"></i> Каталог
+                </a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content account-page">
+        <div class="container">
+            <h1 class="page-title">Заказы</h1>
+            
+            <div class="orders-container">
+                <table id="orders-table" class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Дата оформления</th>
+                            <th>Состав заказа</th>
+                            <th>Стоимость</th>
+                            <th>Доставка</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-list"></tbody>
+                </table>
+                
+                <div id="no-orders" class="no-orders" style="display: none;">
+                    <p>У вас пока нет заказов.</p>
+                    <a href="index.html" class="btn btn-primary">Перейти в каталог</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">&copy; 2024 TechShop</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="view-order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Просмотр заказа</h3>
+            <div id="view-order-content" class="order-details"></div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary close-view-modal">Ок</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Редактирование заказа</h3>
+            <form id="edit-order-form" class="edit-order-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Дата оформления</label>
+                        <input type="text" id="edit-created-at" readonly>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-full-name">Имя</label>
+                        <input type="text" id="edit-full-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-phone">Номер телефона</label>
+                        <input type="tel" id="edit-phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-email">Email</label>
+                        <input type="email" id="edit-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-delivery-address">Адрес доставки</label>
+                        <input type="text" id="edit-delivery-address" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-delivery-date">Дата доставки</label>
+                        <input type="date" id="edit-delivery-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-delivery-interval">Время доставки</label>
+                        <select id="edit-delivery-interval" required>
+                            <option value="08:00-12:00">08:00-12:00</option>
+                            <option value="12:00-14:00">12:00-14:00</option>
+                            <option value="14:00-18:00">14:00-18:00</option>
+                            <option value="18:00-22:00">18:00-22:00</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Состав заказа</label>
+                        <div id="edit-order-items" class="order-items-list"></div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Стоимость</label>
+                        <input type="text" id="edit-order-total" readonly>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="edit-comment">Комментарий</label>
+                        <textarea id="edit-comment" rows="3"></textarea>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary close-edit-modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="delete-order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Удаление заказа</h3>
+            <p>Вы уверены, что хотите удалить заказ?</p>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-secondary close-delete-modal">Нет</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete">Да</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>

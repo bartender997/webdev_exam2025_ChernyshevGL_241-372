@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechShop - Корзина</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="notification-area"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1><a href="index.html">TechShop</a></h1>
+            </div>
+            
+            <div class="header-actions">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-store"></i> Каталог
+                </a>
+                <a href="account.html" class="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content cart-page">
+        <div class="container">
+            <h1 class="page-title">Корзина</h1>
+            
+            <div class="cart-layout">
+                <div class="cart-items-section">
+                    <div id="cart-items" class="cart-items-container"></div>
+                    
+                    <div id="empty-cart" class="empty-cart" style="display: none;">
+                        <p>Корзина пуста. Перейдите в каталог, чтобы добавить товары.</p>
+                        <a href="index.html" class="btn btn-primary">Перейти в каталог</a>
+                    </div>
+                </div>
+
+                <div class="order-form-section">
+                    <h2>Оформление заказа</h2>
+                    
+                    <form id="order-form" class="order-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="full-name">Имя</label>
+                                <input type="text" id="full-name" placeholder="Иванов Иван" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Номер телефона</label>
+                                <input type="tel" id="phone" placeholder="+74952230523" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="example@mospolytech.ru" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="delivery-address">Адрес доставки</label>
+                                <input type="text" id="delivery-address" placeholder="ул. Большая Семёновская, 38" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="delivery-date">Дата доставки</label>
+                                <input type="date" id="delivery-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="delivery-interval">Временной интервал доставки</label>
+                                <select id="delivery-interval" required>
+                                    <option value="">Выберите интервал</option>
+                                    <option value="08:00-12:00">08:00-12:00</option>
+                                    <option value="12:00-14:00">12:00-14:00</option>
+                                    <option value="14:00-18:00">14:00-18:00</option>
+                                    <option value="18:00-22:00">18:00-22:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="comment">Комментарий</label>
+                                <textarea id="comment" rows="3" placeholder="Текст комментария"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="subscribe">
+                                <span class="checkmark"></span>
+                                Подписаться на рассылку
+                            </label>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <div class="summary-row">
+                                <span>Стоимость товаров:</span>
+                                <span id="products-total">0 ₽</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Стоимость доставки:</span>
+                                <span id="delivery-cost">200 ₽</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Итоговая стоимость:</span>
+                                <span id="order-total">200 ₽</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="button" id="reset-form" class="btn btn-secondary">Сбросить</button>
+                            <button type="submit" class="btn btn-primary">Оформить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">&copy; 2025 TechShop</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
